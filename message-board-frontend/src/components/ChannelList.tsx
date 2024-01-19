@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
-import { useAppContext } from '../context/AppContext';
-import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
+import React, { useState } from "react";
+import { useAppContext } from "../context/AppContext";
+import List from "@mui/material/List";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
+import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
 
 function ChannelList() {
   const { channels, selectChannel, selectedChannel } = useAppContext();
-  console.log(channels);
-  const [searchTerm, setSearchTerm] = useState('');
+
+  const [searchTerm, setSearchTerm] = useState("");
 
   const filteredChannels = channels.filter((channel) =>
     channel.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const handleSelectChannel = (channelId : number) => {
-    setSearchTerm('');
+  const handleSelectChannel = (channelId: number) => {
+    setSearchTerm("");
     selectChannel(channelId);
   };
 
@@ -46,7 +46,3 @@ function ChannelList() {
 }
 
 export default ChannelList;
-
-
-
-

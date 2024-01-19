@@ -3,20 +3,38 @@ import { render, act, fireEvent, screen } from "@testing-library/react";
 import { AppProvider, useAppContext } from "../../context/AppContext";
 import { getChannels } from "../../service/api";
 import App from "../../App";
-
+import * as Api from "../../service/api";
+import * as appContext from "../../context/AppContext";
 
 jest.mock("../../hooks/useSocket", () => ({
-  useSocket: jest.fn(() => ({ socket: { emit: jest.fn(), on: jest.fn(), off: jest.fn() } })),
-}));
-
-
-jest.mock("../../service/api", () => ({
-  getChannels: jest.fn(() => Promise.resolve([])),
-  getMessages: jest.fn(() => Promise.resolve([])),
-  postMessage: jest.fn(),
+  useSocket: jest.fn(() => ({
+    socket: { emit: jest.fn(), on: jest.fn(), off: jest.fn() },
+  })),
 }));
 
 describe("AppProvider", () => {
+  beforeEach(() => {
+    jest.spyOn(Api, "getChannels").mockResolvedValue([
+      { id: 1, name: "Channel 1" },
+      { id: 2, name: "Channel 2" },
+    ]);
+    jest.spyOn(appContext, "useAppContext").mockReturnValue({
+      messages: [
+        {
+          date: "20:6",
+          id: "f2807516-d0ca-4477-a91b-3e5ea8ed9331",
+          text: "Hello world",
+        },
+      ],
+      channels: [
+        { id: 1, name: "Channel 1" },
+        { id: 2, name: "Channel 2" },
+      ],
+      selectedChannel: null,
+      selectChannel: jest.fn(),
+      submitMessage: jest.fn(),
+    });
+  });
   it("fetches channels on mount", async () => {
     await act(async () => {
       render(
@@ -25,57 +43,6 @@ describe("AppProvider", () => {
         </AppProvider>
       );
     });
-    screen.debug();
     expect(getChannels).toHaveBeenCalled();
   });
-
-/*   it("selects a channel and joins the socket room", async () => {
-    render(
-      <AppProvider>
-        <div>Test Child</div>
-      </AppProvider>
-    );
-
-
-    await screen.findByText("Test Child");
-
-    const { result } = useAppContext();
-
-    // Select a channel
-    act(() => {
-      result.current.selectChannel(1);
-    });
-
-    // Assert that the selected channel is updated
-    expect(result.current.selectedChannel).toBe(1);
-
-    // Assert that socket.emit is called with the correct arguments
-    expect(result.current.socket.emit).toHaveBeenCalledWith("join", 1);
-  });
-
-    
-  }); */
-
-/*   it("fetches messages when the selected channel changes", async () => {
-    const { result, waitForNextUpdate } = renderHook(() => useAppContext());
-
-    act(() => {
-      result.current.selectChannel(1);
-    });
-
-    await waitForNextUpdate();
-
-    expect(await getMessages).toHaveBeenCalledWith(1);
-  });
-
-  it("submits a message", () => {
-    const { result } = renderHook(() => useAppContext());
-
-    act(() => {
-      result.current.submitMessage("Hello, World!");
-    });
-
-    expect(postMessage).toHaveBeenCalledWith(result.current.selectedChannel, { text: "Hello, World!" });
-  }); */
 });
-

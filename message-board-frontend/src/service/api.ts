@@ -9,6 +9,7 @@ export const getChannels = async () => {
 
 export const getMessages = async (channelId: number) => {
   const response = await axios.get(`${BASE_URL}/messages/${channelId}`);
+  console.log(response.data);
   return response.data;
 };
 

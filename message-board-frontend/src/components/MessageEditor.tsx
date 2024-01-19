@@ -1,22 +1,22 @@
-import { useState, useContext, useEffect } from 'react';
-import { useAppContext } from '../context/AppContext';
-import TextField from '@mui/material/TextField';
-import IconButton from '@mui/material/IconButton';
-import SendIcon from '@mui/icons-material/Send';
+import React, { useState, useContext, useEffect } from "react";
+import { useAppContext } from "../context/AppContext";
+import TextField from "@mui/material/TextField";
+import IconButton from "@mui/material/IconButton";
+import SendIcon from "@mui/icons-material/Send";
 
 function MessageEditor() {
   const { selectedChannel, submitMessage } = useAppContext();
-  const [messageText, setMessageText] = useState('');
+  const [messageText, setMessageText] = useState("");
 
   useEffect(() => {
     // Reset input when switching channels
-    setMessageText('');
+    setMessageText("");
   }, [selectedChannel]);
 
   const handleSubmit = () => {
-    if (messageText.trim() !== '') {
+    if (messageText.trim() !== "") {
       submitMessage(messageText);
-      setMessageText('');
+      setMessageText("");
     }
   };
 
@@ -35,6 +35,7 @@ function MessageEditor() {
               color="primary"
               onClick={handleSubmit}
               disabled={!messageText.trim()}
+              data-testid="send-button"
             >
               <SendIcon />
             </IconButton>
@@ -46,4 +47,3 @@ function MessageEditor() {
 }
 
 export default MessageEditor;
-
