@@ -3,10 +3,12 @@ module.exports = {
     transform: {
       '^.+\\.tsx?$': 'ts-jest',
     },
-    testMatch: [
+    "testMatch": [
       "**/__tests__/**/*.test.ts",
-      "**/?(*.)+(test).ts"
-    ],  
+      "**/__tests__/**/*.test.tsx",
+      "**/?(*.)+(test).ts",
+      "**/?(*.)+(test).tsx"
+    ], 
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
     extensionsToTreatAsEsm: ['.ts'], // Treat TypeScript files as ESM
   };

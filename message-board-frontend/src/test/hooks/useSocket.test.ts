@@ -12,6 +12,7 @@ describe('useSocket', () => {
       disconnect: jest.fn(),
     } as unknown) as Socket;
 
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore: Ignore TypeScript warning since we are mocking the implementation
     io.mockReturnValue(mockSocket);
 

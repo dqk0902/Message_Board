@@ -6,8 +6,9 @@ import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 
-function SearchChannel() {
+function ChannelList() {
   const { channels, selectChannel, selectedChannel } = useAppContext();
+  console.log(channels);
   const [searchTerm, setSearchTerm] = useState('');
 
   const filteredChannels = channels.filter((channel) =>
@@ -44,7 +45,7 @@ function SearchChannel() {
   );
 }
 
-export default SearchChannel;
+export default ChannelList;
 
 
 

@@ -10,7 +10,7 @@ import { getChannels, getMessages, postMessage } from "../service/api";
 import { Channels } from "../types/channels";
 import { Message } from "../types/message";
 
-interface AppContextProps {
+export interface AppContextProps {
   channels: Channels[];
   selectedChannel: number | null;
   messages: Message[];
@@ -18,7 +18,7 @@ interface AppContextProps {
   submitMessage: (text: string) => void;
 }
 
-interface AppProviderProps {
+export interface AppProviderProps {
   children: ReactNode;
 }
 export const AppContext = createContext<AppContextProps>(null!);
@@ -84,6 +84,7 @@ export function AppProvider({ children }: AppProviderProps) {
     submitMessage,
   };
 
+  // eslint-disable-next-line react/react-in-jsx-scope
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }
 export function useAppContext() {
