@@ -8,8 +8,8 @@ This is a prototype message board implemented as a single-page web application i
 
 The project is divided into two main parts:
 
-- React Client\*\*: Frontend implemented using React, Typescript, MUI library.
-- NodeJS Backend\*\*: Backend server implemented using Express, socket.io.
+- React Client: Frontend implemented using React, Typescript, MUI library.
+- NodeJS Backend: Backend server implemented using Express, socket.io.
 
 ## Installation
 
