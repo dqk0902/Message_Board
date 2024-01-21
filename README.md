@@ -8,28 +8,32 @@ This is a prototype message board implemented as a single-page web application i
 
 The project is divided into two main parts:
 
-- **React Client**: Frontend implemented using React, Typescript, MUI library.
-- **NodeJS Backend**: Backend server implemented using Express, socket.io.
+- React Client\*\*: Frontend implemented using React, Typescript, MUI library.
+- NodeJS Backend\*\*: Backend server implemented using Express, socket.io.
 
 ## Installation
 
 ### React Client
 
 Navigate to the `client` directory:
-cd message-borad-frontend
+
+- cd message-borad-frontend
 
 Install dependencies and start the React client:
-npm install
-npm start
+
+- npm install
+- npm start
 
 ### Nodejs Backend
 
 Navigate to the `server` directory:
-cd message-borad-backend
+
+- cd message-borad-backend
 
 Install dependencies and start the React client:
-npm install
-npm start
+
+- npm install
+- npm start
 
 ## Usage
 
@@ -37,10 +41,10 @@ Open your browser and go to http://localhost:3000 to access the message board.
 
 The message board consists of three panels:
 
-Navigation panel: List of channels
-Message list panel: List of messages for the selected channel
-Editor panel: Text area input to submit new messages (visible when a channel is selected)
-Interact with the message board by selecting channels, entering text in the editor, and submitting messages.
+- Navigation panel: List of channels
+- Message list panel: List of messages for the selected channel
+- Editor panel: Text area input to submit new messages (visible when a channel is selected)
+- Interact with the message board by selecting channels, entering text in the editor, and submitting messages.
 
 ## API Endpoints
 
@@ -59,6 +63,6 @@ Body: { "text": "Your message here" }
 
 ## Improve the application
 
-Auto scroll to latest message
-Use socket.io to provide real-time chat-app
-Search channels
+- Auto scroll to latest message
+- Use socket.io to provide real-time chat-app
+- Search channels
