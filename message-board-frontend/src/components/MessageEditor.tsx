@@ -21,28 +21,26 @@ function MessageEditor() {
   };
 
   return (
-    <div>
-      <TextField
-        value={messageText}
-        onChange={(e) => setMessageText(e.target.value)}
-        placeholder="Aa"
-        fullWidth
-        variant="outlined"
-        margin="normal"
-        InputProps={{
-          endAdornment: (
-            <IconButton
-              color="primary"
-              onClick={handleSubmit}
-              disabled={!messageText.trim()}
-              data-testid="send-button"
-            >
-              <SendIcon />
-            </IconButton>
-          ),
-        }}
-      />
-    </div>
+    <TextField
+      value={messageText}
+      onChange={(e) => setMessageText(e.target.value)}
+      placeholder="Aa"
+      fullWidth
+      variant="outlined"
+      margin="normal"
+      InputProps={{
+        endAdornment: (
+          <IconButton
+            color="primary"
+            onClick={handleSubmit}
+            disabled={!messageText.trim()}
+            data-testid="send-button"
+          >
+            <SendIcon />
+          </IconButton>
+        ),
+      }}
+    />
   );
 }
 

@@ -31,14 +31,6 @@ const channels: Channel[] = [
   { id: 3, name: "Channel 3", messages: [] },
 ];
 
-// server start, storage is populated with a fixed set of empty channels
-const initializeChannels = () => {
-  channels.forEach((channel) => {
-    channel.messages = [];
-  });
-};
-initializeChannels();
-
 app.get("/channels", (req: Request, res: Response) => {
   res.json(channels.map(({ id, name }) => ({ id, name })));
 });

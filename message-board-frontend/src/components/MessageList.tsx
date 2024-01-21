@@ -11,11 +11,11 @@ function MessageList() {
   return (
     <Paper
       elevation={3}
-      style={{ padding: "20px", height: "73vh", overflowY: "auto" }}
+      sx={{ padding: "20px", height: "73vh", overflowY: "auto" }}
     >
       <List>
-        {messages.map((message, index) => (
-          <ListItem key={index} alignItems="flex-start">
+        {messages.map((message, id) => (
+          <ListItem key={id} alignItems="flex-start">
             <ListItemText
               primary={message.text}
               secondary={<React.Fragment>{message.date}</React.Fragment>}
