@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import { useSocket } from "../hooks/useSocket";
 import { getChannels, getMessages, postMessage } from "../service/api";
-import { Channel } from "../types/channels";
+import { Channel } from "../types/channel";
 import { Message } from "../types/message";
 
 export interface AppContextProps {

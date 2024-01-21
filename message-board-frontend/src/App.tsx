@@ -36,7 +36,10 @@ function App() {
 
         <Grid item xs={9}>
           {selectedChannel !== null ? (
-            <MessageList />
+            <>
+              <MessageList />
+              <MessageEditor />
+            </>
           ) : (
             <Grid
               container
@@ -49,8 +52,6 @@ function App() {
               </Typography>
             </Grid>
           )}
-
-          {selectedChannel !== null && <MessageEditor />}
         </Grid>
       </Grid>
     </Grid>
