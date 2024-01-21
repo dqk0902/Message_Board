@@ -1,25 +1,33 @@
-import React, { useContext } from "react";
+import React, { useRef, useEffect } from "react";
 import { useAppContext } from "../context/AppContext";
-import Paper from "@mui/material/Paper";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemText from "@mui/material/ListItemText";
+import { Paper, List, ListItem, ListItemText } from "@mui/material";
 
 function MessageList() {
   const { messages } = useAppContext();
+  const paperRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    // Scroll to the bottom when messages change
+    if (paperRef.current) {
+      paperRef.current.scrollTop = paperRef.current.scrollHeight;
+    }
+  }, [messages]);
 
   return (
     <Paper
       elevation={3}
-      sx={{ padding: "20px", height: "73vh", overflowY: "auto" }}
+      sx={{
+        padding: "20px",
+        height: "calc(100vh - 210px)",
+        overflowY: "auto",
+        scrollBehavior: "smooth",
+      }}
+      ref={paperRef}
     >
       <List>
         {messages.map((message, id) => (
           <ListItem key={id} alignItems="flex-start">
-            <ListItemText
-              primary={message.text}
-              secondary={<React.Fragment>{message.date}</React.Fragment>}
-            />
+            <ListItemText primary={message.text} secondary={message.time} />
           </ListItem>
         ))}
       </List>

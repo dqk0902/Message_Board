@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import { useAppContext } from "../context/AppContext";
-import List from "@mui/material/List";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
-import Typography from "@mui/material/Typography";
-import TextField from "@mui/material/TextField";
+import { List, ListItemButton, ListItemText, TextField } from "@mui/material";
 
 function ChannelList() {
   const { channels, selectChannel, selectedChannel } = useAppContext();

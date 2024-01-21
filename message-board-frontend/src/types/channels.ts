@@ -1,4 +1,4 @@
-export interface Channels {
+export interface Channel {
   id: number;
   name: string;
 }

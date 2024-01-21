@@ -51,7 +51,7 @@ app.post("/:channelId", (req: Request, res: Response) => {
     const newMessage = {
       id: uuidv4(),
       text,
-      date: `${date.getHours()}:${date.getMinutes()}`,
+      time: `${date.getHours()}:${date.getMinutes()}`,
     };
 
     channel.messages.push(newMessage);

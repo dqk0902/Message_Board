@@ -1,7 +1,6 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useAppContext } from "../context/AppContext";
-import TextField from "@mui/material/TextField";
-import IconButton from "@mui/material/IconButton";
+import { TextField, IconButton } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 
 function MessageEditor() {

@@ -4,7 +4,6 @@ import ChannelList from "./components/ChannelList";
 import MessageList from "./components/MessageList";
 import MessageEditor from "./components/MessageEditor";
 import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
 import { Grid } from "@mui/material";
 
 function App() {
@@ -16,14 +15,14 @@ function App() {
         <Typography
           variant="h4"
           component="h1"
-          style={{
+          sx={{
             color: "#1976D2",
             fontFamily: "Roboto, sans-serif",
             fontWeight: "bold",
             textTransform: "uppercase",
             letterSpacing: "2px",
-            paddingBottom: "2vh",
-            paddingTop: "2vh",
+            paddingTop: "10px",
+            paddingBottom: "5px",
           }}
         >
           Message Board App
@@ -42,8 +41,8 @@ function App() {
             <Grid
               container
               justifyContent="center"
+              height="calc(100vh - 210px)"
               alignItems="center"
-              height="73vh"
             >
               <Typography variant="h6" color="textSecondary" align="center">
                 Select a channel to view messages.

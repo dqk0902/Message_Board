@@ -1,4 +1,4 @@
-import react, {
+import React, {
   createContext,
   useState,
   useEffect,
@@ -7,11 +7,11 @@ import react, {
 } from "react";
 import { useSocket } from "../hooks/useSocket";
 import { getChannels, getMessages, postMessage } from "../service/api";
-import { Channels } from "../types/channels";
+import { Channel } from "../types/channels";
 import { Message } from "../types/message";
 
 export interface AppContextProps {
-  channels: Channels[];
+  channels: Channel[];
   selectedChannel: number | null;
   messages: Message[];
   selectChannel: (channelId: number) => void;
@@ -21,10 +21,11 @@ export interface AppContextProps {
 export interface AppProviderProps {
   children: ReactNode;
 }
+// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 export const AppContext = createContext<AppContextProps>(null!);
 
 export function AppProvider({ children }: AppProviderProps) {
-  const [channels, setChannels] = useState<Channels[]>([]);
+  const [channels, setChannels] = useState<Channel[]>([]);
   const [selectedChannel, setSelectedChannel] = useState<number | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const { socket } = useSocket();
@@ -84,7 +85,6 @@ export function AppProvider({ children }: AppProviderProps) {
     submitMessage,
   };
 
-  // eslint-disable-next-line react/react-in-jsx-scope
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }
 export function useAppContext() {
