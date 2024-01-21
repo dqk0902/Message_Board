@@ -13,10 +13,8 @@ function MessageEditor() {
   }, [selectedChannel]);
 
   const handleSubmit = () => {
-    if (messageText.trim() !== "") {
-      submitMessage(messageText);
-      setMessageText("");
-    }
+    submitMessage(messageText);
+    setMessageText("");
   };
 
   return (
