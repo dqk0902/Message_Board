@@ -25,9 +25,7 @@ interface Channel {
   messages: { id: string; text: string }[];
 }
 interface Channels {
-  1: Channel;
-  2: Channel;
-  3: Channel;
+  [key: string]: Channel;
 }
 // In-memory storage for channels and messages
 
@@ -37,19 +35,20 @@ const channels: Channels = {
   3: { id: 3, name: "Channel 3", messages: [] },
 };
 app.get("/channels", (req: Request, res: Response) => {
-  res.json(channels);
+  const channelArray = Object.values(channels);
+  res.json(channelArray);
 });
 
 app.get("/messages/:channelId", (req: Request, res: Response) => {
   const channelId = parseInt(req.params.channelId);
-  const channel = channels.find((c) => c.id === channelId);
+  const channel = channels[channelId];
   res.json(channel ? channel.messages : []);
 });
 
 app.post("/:channelId", (req: Request, res: Response) => {
   const channelId = parseInt(req.params.channelId);
   const { text } = req.body;
-  const channel = channels.find((c) => c.id === channelId);
+  const channel = channels[channelId];
 
   if (channel) {
     const date = new Date();
