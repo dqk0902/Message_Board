@@ -24,15 +24,20 @@ interface Channel {
   name: string;
   messages: { id: string; text: string }[];
 }
+interface Channels {
+  1: Channel;
+  2: Channel;
+  3: Channel;
+}
 // In-memory storage for channels and messages
-const channels: Channel[] = [
-  { id: 1, name: "Channel 1", messages: [] },
-  { id: 2, name: "Channel 2", messages: [] },
-  { id: 3, name: "Channel 3", messages: [] },
-];
 
+const channels: Channels = {
+  1: { id: 1, name: "Channel 1", messages: [] },
+  2: { id: 2, name: "Channel 2", messages: [] },
+  3: { id: 3, name: "Channel 3", messages: [] },
+};
 app.get("/channels", (req: Request, res: Response) => {
-  res.json(channels.map(({ id, name }) => ({ id, name })));
+  res.json(channels);
 });
 
 app.get("/messages/:channelId", (req: Request, res: Response) => {
