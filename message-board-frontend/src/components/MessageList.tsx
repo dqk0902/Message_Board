@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import { useAppContext } from "../context/AppContext";
-import { Paper, List, ListItem, ListItemText } from "@mui/material";
+import { Paper, List, ListItem, ListItemText, Box } from "@mui/material";
+import MessageEditor from "./MessageEditor";
 
 function MessageList() {
   const { messages } = useAppContext();
@@ -14,24 +15,27 @@ function MessageList() {
   }, [messages]);
 
   return (
-    <Paper
-      elevation={3}
-      sx={{
-        padding: "20px",
-        height: "calc(100vh - 210px)",
-        overflowY: "auto",
-        scrollBehavior: "smooth",
-      }}
-      ref={paperRef}
-    >
-      <List>
-        {messages.map((message, id) => (
-          <ListItem key={id} alignItems="flex-start">
-            <ListItemText primary={message.text} secondary={message.time} />
-          </ListItem>
-        ))}
-      </List>
-    </Paper>
+    <Box sx={{ display: "flex", flex: 1, flexDirection: "column" }}>
+      <Paper
+        elevation={3}
+        sx={{
+          padding: "20px",
+          overflowY: "auto",
+          scrollBehavior: "smooth",
+          flex: 1,
+        }}
+        ref={paperRef}
+      >
+        <List>
+          {messages.map((message, id) => (
+            <ListItem key={id} alignItems="flex-start">
+              <ListItemText primary={message.text} secondary={message.time} />
+            </ListItem>
+          ))}
+        </List>
+      </Paper>
+      <MessageEditor />
+    </Box>
   );
 }
 
