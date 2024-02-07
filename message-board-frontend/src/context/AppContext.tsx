@@ -9,17 +9,22 @@ import { useSocket } from "../hooks/useSocket";
 import { getChannels, getMessages, postMessage } from "../service/api";
 import { Channel } from "../types/channel";
 import { Message } from "../types/message";
+import { v4 as uuidv4 } from "uuid";
 
 export interface AppContextProps {
   channels: Channel[];
   selectedChannel: number | null;
   messages: Message[];
+  allMessages: AllMessages;
   selectChannel: (channelId: number) => void;
   submitMessage: (text: string) => void;
 }
 
 export interface AppProviderProps {
   children: ReactNode;
+}
+interface AllMessages {
+  [key: string]: { messages: Message[] };
 }
 // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 export const AppContext = createContext<AppContextProps>(null!);
@@ -28,6 +33,7 @@ export function AppProvider({ children }: AppProviderProps) {
   const [channels, setChannels] = useState<Channel[]>([]);
   const [selectedChannel, setSelectedChannel] = useState<number | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
+  const [allMessages, setAllMessages] = useState<AllMessages>({});
   const { socket } = useSocket();
 
   useEffect(() => {
@@ -39,6 +45,21 @@ export function AppProvider({ children }: AppProviderProps) {
     // Fetch initial channel list
     fetchChannels();
   }, []);
+
+  useEffect(() => {
+    if (selectedChannel !== null && !allMessages[selectedChannel]) {
+      const fetchAllMessages = async () => {
+        const fetchedMessages = await getMessages(selectedChannel);
+        setAllMessages((prev) => ({
+          ...prev,
+          [selectedChannel]: {
+            messages: fetchedMessages,
+          },
+        }));
+      };
+      fetchAllMessages();
+    }
+  }, [channels, selectedChannel]);
 
   const selectChannel = (channelId: number) => {
     setSelectedChannel(channelId);
@@ -58,9 +79,16 @@ export function AppProvider({ children }: AppProviderProps) {
   useEffect(() => {
     if (socket) {
       const handleNewMessage = (message: Message, channelId: number | null) => {
-        console.log(message, channelId);
         if (selectedChannel === channelId) {
           setMessages((prevMessages) => [...prevMessages, message]);
+        }
+        if (channelId !== null) {
+          setAllMessages((prev) => ({
+            ...prev,
+            [channelId]: {
+              messages: [...prev[channelId].messages, message],
+            },
+          }));
         }
       };
 
@@ -71,13 +99,31 @@ export function AppProvider({ children }: AppProviderProps) {
     }
   }, [selectedChannel, socket]);
 
-  const submitMessage = (text: string) => {
+  const submitMessage = async (text: string) => {
     if (selectedChannel !== null) {
-      postMessage(selectedChannel, { text });
+      const date = new Date();
+      const newMessage = {
+        id: uuidv4(),
+        text: text,
+        time: `${date.getHours()}:${date.getMinutes()}`,
+      };
+
+      try {
+        await postMessage(selectedChannel, newMessage);
+      } catch (error) {
+        console.log(error);
+        setAllMessages((prev) => ({
+          ...prev,
+          [selectedChannel]: {
+            messages: [...prev[selectedChannel].messages, newMessage],
+          },
+        }));
+      }
     }
   };
-
+  console.log(allMessages);
   const value: AppContextProps = {
+    allMessages,
     channels,
     selectedChannel,
     messages,

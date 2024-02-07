@@ -4,7 +4,7 @@ import { Paper, List, ListItem, ListItemText, Box } from "@mui/material";
 import MessageEditor from "./MessageEditor";
 
 function MessageList() {
-  const { messages } = useAppContext();
+  const { allMessages, messages, selectedChannel } = useAppContext();
   const paperRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -12,7 +12,7 @@ function MessageList() {
     if (paperRef.current) {
       paperRef.current.scrollTop = paperRef.current.scrollHeight;
     }
-  }, [messages]);
+  }, [allMessages]);
 
   return (
     <Box sx={{ display: "flex", flex: 1, flexDirection: "column" }}>
@@ -27,11 +27,13 @@ function MessageList() {
         ref={paperRef}
       >
         <List>
-          {messages.map((message, id) => (
-            <ListItem key={id} alignItems="flex-start">
-              <ListItemText primary={message.text} secondary={message.time} />
-            </ListItem>
-          ))}
+          {selectedChannel &&
+            allMessages[selectedChannel] &&
+            allMessages[selectedChannel].messages.map((message, id) => (
+              <ListItem key={id} alignItems="flex-start">
+                <ListItemText primary={message.text} secondary={message.time} />
+              </ListItem>
+            ))}
         </List>
       </Paper>
       <MessageEditor />

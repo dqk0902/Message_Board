@@ -36,7 +36,7 @@ const channels: Channels = {
 };
 app.get("/channels", (req: Request, res: Response) => {
   const channelArray = Object.values(channels);
-  res.json(channelArray);
+  res.json(channelArray.map(({ id, name }) => ({ id, name })));
 });
 
 app.get("/messages/:channelId", (req: Request, res: Response) => {
@@ -47,17 +47,10 @@ app.get("/messages/:channelId", (req: Request, res: Response) => {
 
 app.post("/:channelId", (req: Request, res: Response) => {
   const channelId = parseInt(req.params.channelId);
-  const { text } = req.body;
+  const newMessage = req.body;
   const channel = channels[channelId];
 
   if (channel) {
-    const date = new Date();
-    const newMessage = {
-      id: uuidv4(),
-      text,
-      time: `${date.getHours()}:${date.getMinutes()}`,
-    };
-
     channel.messages.push(newMessage);
 
     // Send new message to all in channel except sender
