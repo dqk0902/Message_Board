@@ -4,7 +4,7 @@ import { Paper, List, ListItem, ListItemText, Box } from "@mui/material";
 import MessageEditor from "./MessageEditor";
 
 function MessageList() {
-  const { allMessages, messages, selectedChannel } = useAppContext();
+  const { allMessages, selectedChannel } = useAppContext();
   const paperRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {

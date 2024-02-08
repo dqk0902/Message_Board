@@ -59,7 +59,7 @@ export function AppProvider({ children }: AppProviderProps) {
       };
       fetchAllMessages();
     }
-  }, [channels, selectedChannel]);
+  }, [selectedChannel]);
 
   const selectChannel = (channelId: number) => {
     setSelectedChannel(channelId);
@@ -121,7 +121,7 @@ export function AppProvider({ children }: AppProviderProps) {
       }
     }
   };
-  console.log(allMessages);
+
   const value: AppContextProps = {
     allMessages,
     channels,

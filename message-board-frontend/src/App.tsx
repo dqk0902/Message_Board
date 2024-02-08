@@ -28,12 +28,12 @@ function App() {
         </Typography>
       </Grid>
 
-      <Grid container item spacing={2}>
+      <Grid container item spacing={2} height="90vh">
         <Grid item xs={3}>
           <ChannelList />
         </Grid>
 
-        <Grid item xs={9} height="90vh" display="flex">
+        <Grid item xs={9} display="flex">
           {selectedChannel !== null ? (
             <MessageList />
           ) : (
