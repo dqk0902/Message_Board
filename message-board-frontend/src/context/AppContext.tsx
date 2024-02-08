@@ -46,20 +46,18 @@ export function AppProvider({ children }: AppProviderProps) {
     fetchChannels();
   }, []);
 
-  useEffect(() => {
-    if (selectedChannel !== null && !allMessages[selectedChannel]) {
-      const fetchAllMessages = async () => {
-        const fetchedMessages = await getMessages(selectedChannel);
-        setAllMessages((prev) => ({
-          ...prev,
-          [selectedChannel]: {
-            messages: fetchedMessages,
-          },
-        }));
-      };
-      fetchAllMessages();
-    }
-  }, [selectedChannel]);
+  if (selectedChannel !== null && !allMessages[selectedChannel]) {
+    const fetchAllMessages = async () => {
+      const fetchedMessages = await getMessages(selectedChannel);
+      setAllMessages((prev) => ({
+        ...prev,
+        [selectedChannel]: {
+          messages: fetchedMessages,
+        },
+      }));
+    };
+    fetchAllMessages();
+  }
 
   const selectChannel = (channelId: number) => {
     setSelectedChannel(channelId);
