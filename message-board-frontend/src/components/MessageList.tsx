@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import { useAppContext } from "../context/AppContext";
-import { Paper, List, ListItem, ListItemText } from "@mui/material";
+import { Paper, List, ListItem, ListItemText, Box } from "@mui/material";
+import MessageEditor from "./MessageEditor";
 
 function MessageList() {
   const { messages, allMessages, selectedChannel } = useAppContext();
@@ -14,26 +15,29 @@ function MessageList() {
   }, [messages]);
 
   return (
-    <Paper
-      elevation={3}
-      sx={{
-        padding: "20px",
-        height: "calc(100vh - 210px)",
-        overflowY: "auto",
-        scrollBehavior: "smooth",
-      }}
-      ref={paperRef}
-    >
-      <List>
-        {selectedChannel &&
-          allMessages[selectedChannel] &&
-          allMessages[selectedChannel].messages.map((message, id) => (
-            <ListItem key={id} alignItems="flex-start">
-              <ListItemText primary={message.text} secondary={message.time} />
-            </ListItem>
-          ))}
-      </List>
-    </Paper>
+    <Box display="flex" flexDirection="column" flex="1">
+      <Paper
+        elevation={3}
+        sx={{
+          padding: "20px",
+          overflowY: "auto",
+          scrollBehavior: "smooth",
+          flex: 1,
+        }}
+        ref={paperRef}
+      >
+        <List>
+          {selectedChannel &&
+            allMessages[selectedChannel] &&
+            allMessages[selectedChannel].messages.map((message, id) => (
+              <ListItem key={id} alignItems="flex-start">
+                <ListItemText primary={message.text} secondary={message.time} />
+              </ListItem>
+            ))}
+        </List>
+      </Paper>
+      <MessageEditor />
+    </Box>
   );
 }
 

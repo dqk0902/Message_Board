@@ -2,7 +2,6 @@ import React from "react";
 import { useAppContext } from "./context/AppContext";
 import ChannelList from "./components/ChannelList";
 import MessageList from "./components/MessageList";
-import MessageEditor from "./components/MessageEditor";
 import Typography from "@mui/material/Typography";
 import { Grid } from "@mui/material";
 
@@ -11,7 +10,7 @@ function App() {
 
   return (
     <Grid container spacing={2} style={{ overflow: "hidden" }}>
-      <Grid item xs={12}>
+      <Grid item xs={12} height="10vh">
         <Typography
           variant="h4"
           component="h1"
@@ -29,24 +28,16 @@ function App() {
         </Typography>
       </Grid>
 
-      <Grid container item spacing={2}>
+      <Grid container item spacing={2} height="90vh">
         <Grid item xs={3}>
           <ChannelList />
         </Grid>
 
-        <Grid item xs={9}>
+        <Grid item xs={9} display="flex">
           {selectedChannel !== null ? (
-            <>
-              <MessageList />
-              <MessageEditor />
-            </>
+            <MessageList />
           ) : (
-            <Grid
-              container
-              justifyContent="center"
-              height="calc(100vh - 210px)"
-              alignItems="center"
-            >
+            <Grid container justifyContent="center" alignItems="center">
               <Typography variant="h6" color="textSecondary" align="center">
                 Select a channel to view messages.
               </Typography>
